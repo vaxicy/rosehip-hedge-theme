@@ -21,6 +21,8 @@ os.chdir(str(ROOT))                      # relative paths only (non-ASCII path s
 OUT_DIR = "store-assets/promo"
 INK = (34, 48, 58)
 WHITE = (255, 255, 255)
+# Chrome draws the caption buttons on a block darker than the tab strip
+CAPTION = (143, 171, 140)
 SHELL = (255, 253, 246)
 
 with open("manifest.json", "r", encoding="utf-8") as f:
@@ -110,23 +112,42 @@ def compose_window(size=(1400, 560)):
     img = Image.alpha_composite(img.convert("RGBA"), shadow).convert("RGB")
     d = ImageDraw.Draw(img)
 
+    # the mini window mirrors the real one: sage tab strip with a darker caption
+    # block, blush toolbar carrying the omnibox, blush bookmark bar, then the page
     d.rounded_rectangle([wx0, wy0, wx1, wy1], radius=18, fill=PAGE)
-    d.rounded_rectangle([wx0, wy0, wx1, wy0 + 40], radius=18, fill=FRAME)
-    d.rectangle([wx0, wy0 + 24, wx1, wy0 + 40], fill=FRAME)
+    d.rounded_rectangle([wx0, wy0, wx1, wy0 + 34], radius=18, fill=FRAME)
+    d.rectangle([wx0, wy0 + 20, wx1, wy0 + 34], fill=FRAME)
     for i, lab in enumerate(("Color", "Theme", "New Tab")):
-        x = wx0 + 18 + i * 118
-        d.rounded_rectangle([x, wy0 + 8, x + 104, wy0 + 32], radius=8,
-                            fill=TOOLBAR if i == 2 else lerp(FRAME, TOOLBAR, 0.45))
-        # light theme: tab labels need dark ink on the pale pills
-        d.text((x + 12, wy0 + 13), lab, font=font(13), fill=INK_T)
-    # address bar + omnibox suggestion
-    d.rounded_rectangle([wx0 + 16, wy0 + 52, wx1 - 16, wy0 + 84], radius=16, fill=WHITE)
-    d.text((wx0 + 32, wy0 + 61), "Search Google or type a URL", font=font(13), fill=(120, 110, 125))
-    g = font(64, True)
-    d.text((wx0 + (wx1 - wx0 - text_w(d, "Google", g)) // 2, wy0 + 116), "Google", font=g,
+        x = wx0 + 16 + i * 104
+        d.rounded_rectangle([x, wy0 + 7, x + 92, wy0 + 28], radius=7,
+                            fill=TOOLBAR if i == 2 else lerp(FRAME, WHITE, 0.38))
+        d.text((x + 10, wy0 + 11), lab, font=font(11), fill=INK_T)
+    # caption panel (three divided cells, dark glyphs) — matches the real window
+    cap_w = 114
+    cap_x0 = wx1 - cap_w
+    d.rectangle([cap_x0, wy0, wx1, wy0 + 34], fill=CAPTION)
+    for i in (1, 2):
+        d.line([(cap_x0 + i * cap_w / 3, wy0), (cap_x0 + i * cap_w / 3, wy0 + 34)],
+               fill=lerp(CAPTION, INK_T, 0.18), width=1)
+    for i, glyph in enumerate(("\u2212", "\u25a1", "\u00d7")):
+        d.text((cap_x0 + cap_w / 6 + i * cap_w / 3, wy0 + 10), glyph,
+               font=font(12), fill=INK_T, anchor="ma")
+    # toolbar band with the omnibox pill
+    d.rectangle([wx0, wy0 + 34, wx1, wy0 + 74], fill=TOOLBAR)
+    d.rounded_rectangle([wx0 + 16, wy0 + 42, wx1 - 16, wy0 + 68], radius=13, fill=WHITE)
+    d.text((wx0 + 32, wy0 + 49), "Search Google or type a URL", font=font(11),
+           fill=(120, 110, 125))
+    # bookmark bar
+    d.rectangle([wx0, wy0 + 74, wx1, wy0 + 94], fill=TOOLBAR)
+    for i, lab in enumerate(("Folders", "Favorites", "Downloads", "Dev")):
+        d.text((wx0 + 26 + i * 92, wy0 + 80), lab, font=font(10),
+               fill=lerp(TOOLBAR, INK_T, 0.58))
+    g = font(58, True)
+    d.text((wx0 + (wx1 - wx0 - text_w(d, "Google", g)) // 2, wy0 + 118), "Google", font=g,
            fill=LOGO_ROSE)
-    d.rounded_rectangle([wx0 + 60, wy0 + 220, wx1 - 60, wy0 + 258], radius=19, fill=WHITE)
-    d.text((wx0 + 92, wy0 + 229), "Search Google or type a URL", font=font(13), fill=(120, 110, 125))
+    d.rounded_rectangle([wx0 + 66, wy0 + 214, wx1 - 66, wy0 + 248], radius=17, fill=WHITE)
+    d.text((wx0 + 90, wy0 + 222), "Search Google or type a URL", font=font(12),
+           fill=(120, 110, 125))
     # shortcut row: three discs only (no label row — user request 2026-10-23),
     # group centred in the card and verified by its real rendered extent
     r_disc, step = 26, 118

@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/promo/1400x560.png" alt="Rosehip Hedge Theme promo" width="700">
+  <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/promo/1400x560.png?v=2" alt="Rosehip Hedge Theme promo" width="700">
 </p>
 
 ## Overview
@@ -53,7 +53,7 @@ The reference palette is four horizontal bands — blush, ivory, light sage, dee
 
 | Browser | Palette |
 |:-:|:-:|
-| <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/screenshots/en/screenshot-1-browser.png" width="420" alt="Rosehip Hedge New Tab"> | <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/screenshots/en/screenshot-2-palette.png" width="420" alt="Rosehip Hedge palette"> |
+| <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/screenshots/en/screenshot-1-browser.png?v=2" width="420" alt="Rosehip Hedge New Tab"> | <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/screenshots/en/screenshot-2-palette.png" width="420" alt="Rosehip Hedge palette"> |
 
 ## Installation
 
@@ -86,8 +86,8 @@ Ready to paste into the store listing (also kept in `store-assets/store-descript
 | `manifest.json` | Theme definition (single-file, inlined `theme` field) |
 | `logo/logo.png` | 128×128 store icon (transparent background) |
 | `store-assets/promo/440x280.png` | Small promo tile |
-| `store-assets/promo/1400x560.png` | Marquee promo tile |
-| `store-assets/screenshots/en/screenshot-1-browser.png` | Browser mockup screenshot (1280×800) |
+| `store-assets/promo/1400x560.png?v=2` | Marquee promo tile |
+| `store-assets/screenshots/en/screenshot-1-browser.png?v=2` | Browser mockup screenshot (1280×800) |
 | `store-assets/screenshots/en/screenshot-2-palette.png` | Palette introduction screenshot (1280×800) |
 | `store-assets/store-description.txt` | Store listing description |
 | `scripts/generate-logo-vector.py` | Render all SVG logo candidates with headless Chromium, export `logo/logo.png` from `SELECTED` |

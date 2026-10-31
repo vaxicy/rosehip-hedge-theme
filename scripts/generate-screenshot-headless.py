@@ -91,7 +91,12 @@ HTML = f"""
 * {{ margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Arial,sans-serif; }}
 body {{ width:1280px; height:800px; background:{C['ntp_bg']}; overflow:hidden; }}
 .tabstrip {{ height:44px; background:{C['frame']}; display:flex; align-items:flex-end;
-             padding:0 0 0 10px; gap:2px; position:relative; }}
+             padding:0 142px 0 10px; gap:2px; position:relative; }}
+/* caption buttons: Chrome draws them on a darker block split into three cells */
+.caption {{ position:absolute; right:0; top:0; height:44px; display:flex; }}
+.caption i {{ width:46px; display:flex; align-items:center; justify-content:center;
+              background:#8FAB8C; color:#2D2F32; font-size:13px; font-style:normal;
+              border-left:1px solid rgba(0,0,0,.13); }}
 .tab {{ flex:0 0 auto; height:28px; display:flex; align-items:center; gap:7px;
         padding:0 13px; border-radius:8px 8px 0 0; font-size:11.5px; color:{NB}; opacity:.75; }}
 .tab.active {{ height:34px; background:{C['toolbar']}; color:{NB}; opacity:1; font-weight:600; }}
@@ -141,7 +146,7 @@ body {{ width:1280px; height:800px; background:{C['ntp_bg']}; overflow:hidden; }
   <div class="tab"><span class="fav"></span>Theme Bake</div>
   <div class="tab"><span class="fav"></span>CrowdCity</div>
   <div class="tab active">New Tab</div>
-  <div class="wctl"><span>&#8722;</span><span>&#9633;</span><span>&#10005;</span></div>
+  <div class="caption"><i>&#8722;</i><i>&#9633;</i><i>&#10005;</i></div>
 </div>
 <div class="toolbar">
   <div class="tbtn"><img src="{BACK}"></div>
