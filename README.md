@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/promo/1400x560.png?v=2" alt="Rosehip Hedge Theme promo" width="700">
+  <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/promo/1400x560.png?v=3" alt="Rosehip Hedge Theme promo" width="700">
 </p>
 
 ## Overview
@@ -53,7 +53,7 @@ The reference palette is four horizontal bands — blush, ivory, light sage, dee
 
 | Browser | Palette |
 |:-:|:-:|
-| <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/screenshots/en/screenshot-1-browser.png?v=2" width="420" alt="Rosehip Hedge New Tab"> | <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/screenshots/en/screenshot-2-palette.png" width="420" alt="Rosehip Hedge palette"> |
+| <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/screenshots/en/screenshot-1-browser.png?v=3" width="420" alt="Rosehip Hedge New Tab"> | <img src="https://raw.githubusercontent.com/vaxicy/rosehip-hedge-theme/main/store-assets/screenshots/en/screenshot-2-palette.png" width="420" alt="Rosehip Hedge palette"> |
 
 ## Installation
 
