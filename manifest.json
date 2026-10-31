@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Rosehip Hedge Theme",
   "version": "1.0.0",
-  "description": "A soft spring Chrome theme: sage chrome, a blush toolbar, and an ivory New Tab Page.",
+  "description": "A soft spring Chrome theme: sage chrome, a blush toolbar, and a rose-pink New Tab Page.",
   "icons": {
     "128": "logo/logo.png"
   },
@@ -13,7 +13,7 @@
       "toolbar":                      [246, 226, 233],
       "tab_text":                     [47, 59, 46],
       "bookmark_text":                [47, 59, 46],
-      "ntp_background":               [254, 250, 243],
+      "ntp_background":               [252, 233, 238],
       "ntp_text":                     [47, 59, 46],
       "ntp_link":                     [78, 107, 76],
       "ntp_header":                   [132, 162, 130],
