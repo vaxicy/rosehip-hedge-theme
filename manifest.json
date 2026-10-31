@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Rosehip Hedge Theme",
+  "version": "1.0.0",
+  "description": "A soft spring Chrome theme: sage chrome, a blush toolbar, and an ivory New Tab Page.",
+  "icons": {
+    "128": "logo/logo.png"
+  },
+  "theme": {
+    "colors": {
+      "frame":                        [184, 207, 179],
+      "frame_inactive":               [198, 217, 193],
+      "toolbar":                      [246, 226, 233],
+      "tab_text":                     [47, 59, 46],
+      "bookmark_text":                [47, 59, 46],
+      "ntp_background":               [254, 250, 243],
+      "ntp_text":                     [47, 59, 46],
+      "ntp_link":                     [78, 107, 76],
+      "ntp_header":                   [132, 162, 130],
+      "button_background":            [132, 162, 130],
+      "button_background_secondary":  [246, 226, 233],
+      "omnibox_background":           [255, 255, 255],
+      "omnibox_text":                 [47, 59, 46],
+      "toolbar_button_icon":          [47, 59, 46]
+    },
+    "properties": {
+      "ntp_button_background":    [132, 162, 130],
+      "ntp_button_hover":         [111, 140, 109],
+      "ntp_logo_alternate":       1,
+      "ntp_single_row_shortcuts": true
+    },
+    "color_scheme": "light",
+    "default_color_scheme": "light"
+  }
+}
