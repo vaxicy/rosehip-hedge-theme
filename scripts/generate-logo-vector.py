@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Rosehip Hedge Theme — vector logo candidates (SVG rendered by headless Chromium).
+"""Rosehip Hedge Theme — vector logo candidates (SVG, headless Chromium).
 
-The reference palette is four horizontal bands: blush, ivory, light sage, deep sage.
-Rosehips have no red in that set, so the berries are drawn in a deepened blush and
-the foliage in the two sages — the mark stays inside the palette while still
-reading as "hedge with hips".
+Style: solid fill only, **no outlines anywhere** (user request 2026-11-01). Because
+every palette colour is pale, separation comes from three devices instead of a
+stroke:
 
-Every palette colour is pale, so each mark pairs a pale fill with a deep olive
-outline; without the outline the shapes vanish on the ivory page.
+  * light fill layered on a darker fill (blush berry on deep sage)
+  * the darkest tone (#2F3B2E) used as the silhouette itself
+  * one soft drop shadow so the mark lifts off an ivory page
 
 Playwright screenshots each SVG cell with omit_background=True (true
 transparency); PIL only composes the contact sheets, the inline strip and the
@@ -44,16 +44,17 @@ def hx(vals):
 
 
 SAGE = hx(_C["frame"])                             # #B8CFB3
-DEEP_SAGE = hx(_C["button_background"])            # #84A282
+DEEP = hx(_C["button_background"])                 # #84A282
 BLUSH = hx(_C["toolbar"])                          # #F6E2E9
 IVORY = hx(_C["ntp_background"])                   # #FEFAF3
 INK = hx(_C["ntp_text"])                           # #2F3B2E
 LINK = hx(_C["ntp_link"])                          # #4E6B4C
-BERRY = "#E2A0B4"                                  # deepened blush for the hips
+BERRY = "#D98CA6"                                  # deepened blush for the hips
+BERRY_DEEP = "#C1708C"
 
 SHADOW = """
   <filter id="ds" x="-35%%" y="-35%%" width="170%%" height="170%%">
-    <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="%s" flood-opacity=".18"/>
+    <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="%s" flood-opacity=".20"/>
   </filter>""" % INK
 
 
@@ -62,66 +63,59 @@ def svg_open(body, defs=""):
             'viewBox="0 0 256 256">%s%s</svg>' % (CELL, CELL, defs, body))
 
 
-def simple_berry(cx, cy, r, fill):
-    return ('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s" stroke="%s" stroke-width="3"/>'
-            '<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#FFFFFF" fill-opacity=".45"/>'
-            % (cx, cy, r, fill, INK, cx - r * 0.3, cy - r * 0.35, r * 0.26))
-
-
-def leaf(cx, cy, rx, ry, angle, fill, vein=True):
-    out = ('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" stroke="%s" '
-           'stroke-width="3" transform="rotate(%.1f %.1f %.1f)"/>'
-           % (cx, cy, rx, ry, fill, INK, angle, cx, cy))
-    if vein:
-        out += ('<path d="M%.1f %.1f L%.1f %.1f" stroke="%s" stroke-width="2.4" '
-                'stroke-opacity=".45" transform="rotate(%.1f %.1f %.1f)"/>'
-                % (cx - rx * 0.7, cy, cx + rx * 0.7, cy, INK, angle, cx, cy))
+def berry(cx, cy, r, fill, hi=True):
+    """Solid hip: body + a soft highlight, no outline."""
+    out = '<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s"/>' % (cx, cy, r, fill)
+    if hi:
+        out += ('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="#FFFFFF" fill-opacity=".42"/>'
+                % (cx - r * 0.30, cy - r * 0.32, r * 0.26))
     return out
+
+
+def leaf(cx, cy, rx, ry, angle, fill):
+    return ('<ellipse cx="%.1f" cy="%.1f" rx="%.1f" ry="%.1f" fill="%s" '
+            'transform="rotate(%.1f %.1f %.1f)"/>' % (cx, cy, rx, ry, fill, angle, cx, cy))
 
 
 # ------------------------------------------------------------------ candidates
 SVG_01 = svg_open("""
 <defs>%s</defs>
 <g filter="url(#ds)">
-  <path d="M128 226 C126 186 124 150 128 116" stroke="%s" stroke-width="7"
-        stroke-linecap="round" fill="none"/>
-  %s
   %s
   %s
   %s
   %s
 </g>
-""" % (SHADOW, LINK,
-       leaf(96, 132, 30, 13, -32, SAGE),
-       leaf(160, 150, 30, 13, 32, SAGE),
-       simple_berry(128, 84, 21, BERRY),
-       simple_berry(104, 108, 15, BERRY),
-       simple_berry(152, 108, 15, BERRY)))
+""" % (SHADOW,
+       leaf(96, 168, 46, 22, -30, SAGE),
+       leaf(160, 168, 46, 22, 30, SAGE),
+       berry(128, 116, 52, BERRY),
+       '<circle cx="128" cy="70" r="13" fill="%s"/>' % BERRY_DEEP))
 
 SVG_02 = svg_open("""
 <defs>%s</defs>
 <g filter="url(#ds)">
-  <path d="M40 206 q20 -48 44 -48 q24 0 44 -22 q20 -22 44 -22 q24 0 44 44 v48 Z"
-        fill="%s" stroke="%s" stroke-width="4"/>
+  <path d="M40 214 Q40 122 96 122 Q128 122 142 96 Q166 62 196 68 Q226 76 226 124 L226 214 Z"
+        fill="%s"/>
   %s
   %s
   %s
 </g>
-""" % (SHADOW, SAGE, INK,
-       simple_berry(84, 168, 13, BERRY),
-       simple_berry(128, 140, 16, BERRY),
-       simple_berry(174, 174, 13, BERRY)))
+""" % (SHADOW, DEEP,
+       berry(84, 172, 20, BERRY),
+       berry(136, 148, 24, BERRY),
+       berry(184, 178, 18, BERRY)))
 
 SVG_03 = svg_open("""
 <defs>%s</defs>
-<circle cx="128" cy="128" r="100" fill="%s" filter="url(#ds)"/>
+<circle cx="128" cy="122" r="92" fill="%s" filter="url(#ds)"/>
 %s
 %s
 %s
-""" % (SHADOW, DEEP_SAGE,
-       simple_berry(128, 118, 34, BERRY),
-       leaf(94, 176, 32, 14, -28, BLUSH),
-       leaf(162, 176, 32, 14, 28, BLUSH)))
+""" % (SHADOW, DEEP,
+       leaf(94, 168, 38, 17, -26, IVORY),
+       leaf(162, 168, 38, 17, 26, IVORY),
+       berry(128, 110, 44, BERRY)))
 
 SVG_04 = svg_open("""
 <defs>%s</defs>
@@ -129,50 +123,52 @@ SVG_04 = svg_open("""
   %s
   %s
   %s
+  %s
 </g>
-""" % (SHADOW, leaf(128, 158, 62, 44, 90, SAGE),
-       simple_berry(128, 128, 26, BERRY),
-       simple_berry(104, 214, 13, BERRY)))
+""" % (SHADOW,
+       leaf(128, 150, 30, 78, 0, SAGE),
+       leaf(92, 168, 26, 62, -34, DEEP),
+       leaf(164, 168, 26, 62, 34, DEEP),
+       berry(128, 74, 34, BERRY)))
 
 SVG_05 = svg_open("""
 <defs>%s</defs>
 <g filter="url(#ds)">
-  <path d="M34 214 q0 -38 30 -38 q30 0 30 38 Z" fill="%s" stroke="%s" stroke-width="4"/>
-  <path d="M96 214 q0 -50 40 -50 q40 0 40 50 Z" fill="%s" stroke="%s" stroke-width="4"/>
-  <path d="M178 214 q0 -34 26 -34 q26 0 26 34 Z" fill="%s" stroke="%s" stroke-width="4"/>
+  <path d="M40 220 V128 a88 88 0 0 1 176 0 V220 Z" fill="%s"/>
+  <path d="M76 220 V132 a52 52 0 0 1 104 0 V220 Z" fill="%s"/>
   %s
   %s
 </g>
-""" % (SHADOW, SAGE, INK, DEEP_SAGE, INK, SAGE, INK,
-       simple_berry(140, 132, 17, BERRY),
-       simple_berry(62, 156, 12, BERRY)))
+""" % (SHADOW, DEEP, IVORY,
+       berry(108, 162, 17, BERRY),
+       berry(150, 186, 14, BERRY)))
 
 SVG_06 = svg_open("""
-<defs>%s</defs>
+<defs>
+  <linearGradient id="bd6" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="%s"/>
+    <stop offset="1" stop-color="%s"/>
+  </linearGradient>
+  %s
+</defs>
 <g filter="url(#ds)">
-  <!-- hip cluster: three berries in a triangle over two leaves -->
-  <path d="M88 176 Q128 158 168 176" fill="none" stroke="%s" stroke-width="6"
-        stroke-linecap="round"/>
-  %s
-  %s
-  %s
-  %s
+  <path d="M128 40 C170 78 196 118 196 152 C196 194 166 220 128 220 C90 220 60 194 60 152
+           C60 118 86 78 128 40 Z" fill="url(#bd6)"/>
   %s
 </g>
-""" % (SHADOW, LINK,
-       simple_berry(128, 96, 27, BERRY),
-       simple_berry(92, 140, 21, BERRY),
-       simple_berry(164, 140, 21, BERRY),
-       leaf(96, 190, 30, 13, -24, SAGE),
-       leaf(160, 190, 30, 13, 24, SAGE)))
+%s
+""" % (BERRY, BERRY_DEEP, SHADOW,
+       '<ellipse cx="104" cy="146" rx="16" ry="24" fill="#FFFFFF" fill-opacity=".35" '
+       'transform="rotate(-18 104 146)"/>',
+       leaf(150, 196, 44, 18, 24, SAGE)))
 
 CANDIDATES = [
-    ("01", "hip-sprig", "Three hips on a sprig with two leaves — most literal", SVG_01),
-    ("02", "hedge-line", "A hedge silhouette carrying three hips", SVG_02),
-    ("03", "hip-badge", "Deep sage badge with a blush hip — strongest at 32px", SVG_03),
-    ("04", "single-hip", "One big hip over a leaf — simplest mark", SVG_04),
-    ("05", "hedge-row", "Three hedge humps with hips — reads as a hedge row", SVG_05),
-    ("06", "hip-cluster", "Three hips clustered over two leaves — most compact", SVG_06),
+    ("01", "solid-hip", "One big hip over two sage leaves — flat, no outline", SVG_01),
+    ("02", "hedge-swell", "Deep-sage hedge carrying three hips", SVG_02),
+    ("03", "hip-disc", "Deep-sage disc, blush hip, ivory leaves", SVG_03),
+    ("04", "leaf-fan", "Three leaves fanning under one hip", SVG_04),
+    ("05", "arch-hedge", "Sage arch hedge with hips inside", SVG_05),
+    ("06", "hip-drop", "Gradient hip over a single leaf — softest", SVG_06),
 ]
 
 
@@ -262,9 +258,9 @@ def main():
     CAND_DIR.mkdir(parents=True, exist_ok=True)
     rendered = render_cells()
     contact_sheet(rendered, (254, 250, 243), (47, 59, 46), (128, 142, 126),
-                  CAND_DIR / "contact-light.png", "Rosehip Hedge — vector logo candidates (light)")
+                  CAND_DIR / "contact-light.png", "Rosehip Hedge — flat candidates (light)")
     contact_sheet(rendered, (40, 50, 40), (246, 226, 233), (150, 168, 148),
-                  CAND_DIR / "contact-dark.png", "Rosehip Hedge — vector logo candidates (dark)")
+                  CAND_DIR / "contact-dark.png", "Rosehip Hedge — flat candidates (dark)")
     inline_strip(rendered, CAND_DIR / "inline-strip.png")
     sel = [c for c in CANDIDATES if c[0] == SELECTED][0]
     icon = rendered[sel[0]].resize((SIZE, SIZE), Image.LANCZOS)
